@@ -53,14 +53,14 @@ class Task
     /**
      * @var datetime
      * 
-     * @ORM\Column(name="deadline", type="datetime")
+     * @ORM\Column(name="deadline", type="datetime", nullable=true)
     */
     protected $deadline;
 
     /**
      * @var string
      * 
-     * @ORM\Column(name="public_concerned", type="string", length=10)
+     * @ORM\Column(name="public_concerned", type="string", length=10, nullable=true)
     */
     protected $publicConcerned;
 
@@ -94,7 +94,7 @@ class Task
     /**
      * @var string
      * 
-     * @ORM\Column(name="state", type="string", length=12)
+     * @ORM\Column(name="state", type="string", length=15)
     */
     protected $state;
 

@@ -16,11 +16,29 @@ class TaskController extends Controller
      * @Method({"GET"})
      */
     public function getTasksAction(Request $request) {
-        return new JsonResponse([
-            new Task('Dossiers GJ', "Faire le tri pour les primes", "Oui"), 
-            new Task("Bilan Compta", "Bilan compta annuel voir avec Angélique et Clothilde", "Oui"),
-            new Task("Accueil Jeunes", "Remplir la fiche d'info", "Non")
-        ]);
 
+        $tasks = $this->get('doctrine.orm.entity_manager')
+            ->getRepository('AppBundle:Task')
+            ->findAll();
+        /* @var $tasks Task[] */
+        
+        $formated = [];
+        foreach ($tasks as $task) {
+            $formated[] = [
+                'id' => $task->getId(),
+                'date of receipt' => $task->getDateReceipt(), 
+                'user concerned' => 'user concerned',
+                'theme' => $task->getTheme(),
+                'priority' => $task->getPriorityLevel(),
+                'deadline' => $task->getDeadline(),
+                'public concerned' => $task->getPublicConcerned(),
+                'goal' => $task->getGoal(),
+                'broadcasting' => $task->getBroadcasting(),
+                'answer' => $task->getAnswer(),
+                'treated by' => 'treated by',
+                'state' =>$task->getState()
+            ];
+        }
+        return new JsonResponse($formated);
     }
 }
