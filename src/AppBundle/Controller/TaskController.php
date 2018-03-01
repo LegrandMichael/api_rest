@@ -21,6 +21,8 @@ class TaskController extends Controller
             ->getRepository('AppBundle:Task')
             ->findAll();
         /* @var $tasks Task[] */
+
+
         
         $formated = [];
         foreach ($tasks as $task) {
