@@ -19,56 +19,56 @@ class User
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    private $id;
+    protected $id;
 
     /**
      * @var string
      *
      * @ORM\Column(name="first_name", type="string", length=255)
      */
-    private $firstName;
+    protected $firstName;
 
     /**
      * @var string
      *
      * @ORM\Column(name="last_name", type="string", length=255)
      */
-    private $lastName;
+    protected $lastName;
 
     /**
      * @var string
      *
      * @ORM\Column(name="function", type="string", length=255)
      */
-    private $function;
+    protected $function;
 
     /**
      * @var string
      *
      * @ORM\Column(name="phone_number", type="string", length=14, nullable=true)
      */
-    private $phoneNumber;
+    protected $phoneNumber;
 
     /**
      * @var string
      *
      * @ORM\Column(name="cellphone", type="string", length=14, unique=true, nullable=true)
      */
-    private $cellphone;
+    protected $cellphone;
 
     /**
      * @var string
      *
      * @ORM\Column(name="email_address", type="string", length=100, unique=true)
      */
-    private $emailAddress;
+    protected $emailAddress;
 
     /**
      * @var string
      *
      * @ORM\Column(name="organization", type="string", length=255)
      */
-    private $organization;
+    protected $organization;
 
 
     /**
