@@ -39,7 +39,7 @@ class Task
     /**
      * @var string
      * 
-     * @ORM\Column(name="theme", type="string", length=30)
+     * @ORM\Column(name="theme", type="string", length=30, nullable=true)
     */
     protected $theme;
 
