@@ -64,20 +64,18 @@ class TaskController extends Controller
 
         ];*/
         $task = new Task();
-
-        $task->setDateReceipt($request->get('dateReceipt'))
-            //->setUserConcerned($request->get('userConcerned'))
-            ->setTheme($request->get('theme'))
-            ->setPriorityLevel($request->get('priorityLevel'))
-            ->setDeadline($request->get('deadline'))
-            ->setPublicConcerned($request->get('publicConcerned'))
-            ->setGoal($request->get('goal'))
-            ->setBroadcasting($request->get('broadcasting'))
-            ->setAnswer($request->get('answer'))
-            //->setTreatedBy($request->get('treatedBy'))
-            ->setState($request->get('state'))
-        ;
-
+        $task->setDateReceipt($request->get('dateReceipt'));
+        $task->setTheme($request->get('theme'));
+        $task->setPriorityLevel($request->get('priorityLevel'));
+        $task->setDeadline($request->get('deadline'));
+        $task->setPublicConcerned($request->get('publicConcerned'));
+        $task->setGoal($request->get('goal'));
+        $task->setBroadcasting($request->get('broadcasting'));
+        $task->setAnswer($request->get('answer'));
+        $task->setState($request->get('state'));
+        
+        
+        
         $em = $this->get('doctrine.orm.entity_manager');
         $em->persist($task);
         $em->flush();
