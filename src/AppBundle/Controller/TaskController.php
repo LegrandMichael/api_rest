@@ -3,10 +3,11 @@
 namespace AppBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use AppBundle\Form\Type\TaskType;
 use AppBundle\Entity\Task;
 
 class TaskController extends Controller
@@ -49,37 +50,19 @@ class TaskController extends Controller
     */
     public function postTasksAction(Request $request)
     {
-        /*return [
-            'payload' => [
-                $request->get('dateReceipt'),
-                $request->get('theme'),
-                $request->get('priorityLevel'),
-                $request->get('deadline'),
-                $request->get('publicConcerned'),
-                $request->get('goal'),
-                $request->get('broadcasting'),
-                $request->get('answer'),
-                $request->get('state')
-            ]
-
-        ];*/
         $task = new Task();
-        $task->setDateReceipt($request->get('dateReceipt'));
-        $task->setTheme($request->get('theme'));
-        $task->setPriorityLevel($request->get('priorityLevel'));
-        $task->setDeadline($request->get('deadline'));
-        $task->setPublicConcerned($request->get('publicConcerned'));
-        $task->setGoal($request->get('goal'));
-        $task->setBroadcasting($request->get('broadcasting'));
-        $task->setAnswer($request->get('answer'));
-        $task->setState($request->get('state'));
-        
-        
-        
-        $em = $this->get('doctrine.orm.entity_manager');
-        $em->persist($task);
-        $em->flush();
+        $form = $this->createForm(TaskType::class, $task);
 
-        return $task;
+        $form->submit($request->request->all());
+
+        if($form->isValid())
+        {
+            $em = $this->get('doctrine.orm.entity_manager');
+            $em->persist($task);
+            $em->flush();
+            return $task;
+        } else {
+            return $form;
+        }
     }
 }
