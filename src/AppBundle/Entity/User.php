@@ -3,6 +3,8 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * User
@@ -70,6 +72,35 @@ class User
      */
     protected $organization;
 
+    /**
+     * Mapping between tables
+     * ----------------------
+    */
+
+    /**
+     * One User has Many Tasks to treat.
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="userConcerned")
+     */
+    protected $tasksToBeTreat;
+
+    /**
+     * One User has Many Tasks to treat.
+     * @ORM\OneToMany(targetEntity="Task", mappedBy="treatedBy")
+    */
+    protected $tasksTreated;
+
+
+
+    public function __construct()
+    {
+        $this->tasksToBeTreat = new ArrayCollections();
+        $this->tasksTreated = new ArrayCollections();
+    }
+
+    /**
+     * Functions to get all necessaries data
+     * -------------------------------------
+    */
 
     /**
      * Get id
@@ -80,6 +111,81 @@ class User
     {
         return $this->id;
     }
+
+    /**
+     * Get firstName
+     *
+     * @return string
+     */
+    public function getFirstName()
+    {
+        return $this->firstName;
+    }
+
+    /**
+     * Get lastName
+     *
+     * @return string
+     */
+    public function getLastName()
+    {
+        return $this->lastName;
+    }
+
+    /**
+     * Get function
+     *
+     * @return string
+     */
+    public function getFunction()
+    {
+        return $this->function;
+    }
+
+    /**
+     * Get phoneNumber
+     *
+     * @return string
+     */
+    public function getPhoneNumber()
+    {
+        return $this->phoneNumber;
+    }
+
+    /**
+     * Get cellphone
+     *
+     * @return string
+     */
+    public function getCellphone()
+    {
+        return $this->cellphone;
+    }
+    
+    /**
+     * Get emailAddress
+     *
+     * @return string
+     */
+    public function getEmailAddress()
+    {
+        return $this->emailAddress;
+    }
+
+    /**
+     * Get organization
+     *
+     * @return string
+     */
+    public function getOrganization()
+    {
+        return $this->organization;
+    }
+    
+    /**
+     * Functions to set all necessaries data
+     * -------------------------------------
+     */
 
     /**
      * Set firstName
@@ -96,16 +202,6 @@ class User
     }
 
     /**
-     * Get firstName
-     *
-     * @return string
-     */
-    public function getFirstName()
-    {
-        return $this->firstName;
-    }
-
-    /**
      * Set lastName
      *
      * @param string $lastName
@@ -115,18 +211,8 @@ class User
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
-
+        
         return $this;
-    }
-
-    /**
-     * Get lastName
-     *
-     * @return string
-     */
-    public function getLastName()
-    {
-        return $this->lastName;
     }
 
     /**
@@ -139,18 +225,8 @@ class User
     public function setFunction($function)
     {
         $this->function = $function;
-
+        
         return $this;
-    }
-
-    /**
-     * Get function
-     *
-     * @return string
-     */
-    public function getFunction()
-    {
-        return $this->function;
     }
 
     /**
@@ -168,16 +244,6 @@ class User
     }
 
     /**
-     * Get phoneNumber
-     *
-     * @return string
-     */
-    public function getPhoneNumber()
-    {
-        return $this->phoneNumber;
-    }
-
-    /**
      * Set cellphone
      *
      * @param string $cellphone
@@ -192,16 +258,6 @@ class User
     }
 
     /**
-     * Get cellphone
-     *
-     * @return string
-     */
-    public function getCellphone()
-    {
-        return $this->cellphone;
-    }
-
-    /**
      * Set emailAddress
      *
      * @param string $emailAddress
@@ -211,20 +267,10 @@ class User
     public function setEmailAddress($emailAddress)
     {
         $this->emailAddress = $emailAddress;
-
+        
         return $this;
     }
-
-    /**
-     * Get emailAddress
-     *
-     * @return string
-     */
-    public function getEmailAddress()
-    {
-        return $this->emailAddress;
-    }
-
+    
     /**
      * Set organization
      *
@@ -235,18 +281,8 @@ class User
     public function setOrganization($organization)
     {
         $this->organization = $organization;
-
+        
         return $this;
-    }
-
-    /**
-     * Get organization
-     *
-     * @return string
-     */
-    public function getOrganization()
-    {
-        return $this->organization;
     }
 }
 

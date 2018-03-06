@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Task
@@ -23,7 +24,7 @@ class Task
 
 
     /**
-     * @var datetime
+     * @var \Datetime
      * 
      * @ORM\Column(name="date_receipt", type="datetime")
     */
@@ -46,12 +47,12 @@ class Task
     /**
      * @var string
      * 
-     * @ORM\Column(name="priority_level", type="string", length=7)
+     * @ORM\Column(name="priority_level", type="string", length=7, nullable=true)
     */
     protected $priorityLevel;
 
     /**
-     * @var datetime
+     * @var \Datetime
      * 
      * @ORM\Column(name="deadline", type="datetime", nullable=true)
     */
@@ -74,7 +75,7 @@ class Task
     /**
      * @var string
      * 
-     * @ORM\Column(name="broadcasting", type="string", length=10) 
+     * @ORM\Column(name="broadcasting", type="string", length=10, nullable=true) 
     */
     protected $broadcasting;
 
@@ -97,6 +98,25 @@ class Task
      * @ORM\Column(name="state", type="string", length=15)
     */
     protected $state;
+
+    /**
+     * Mapping between tables
+     * ---------------------- 
+    */
+
+    /**
+     * Many Tasks have One User.
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="tasksToBeTreat")
+     * @ORM\JoinColumn(name="user_concerned", referencedColumnName="id")
+     */
+    protected $userConcerned;
+
+    /**
+     * Many Tasks have One User.
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="tasksTreated")
+     * @ORM\JoinColumn(name="treated_by", referencedColumnName="id")
+     */
+    protected $treatedBy;
 
     /**
      * Functions to get all necessaries data
@@ -124,9 +144,14 @@ class Task
     }
 
     /**
-     * Get user concerned
-    */
-    //public function getUserConcerned [...]
+     * Get userConcerned
+     *
+     * @return \AppBundle\Entity\User
+     */
+    public function getUserConcerned()
+    {
+        return $this->userConcerned;
+    }
 
     /**
      * Get theme
@@ -199,11 +224,14 @@ class Task
     }
 
     /**
-     * Get treated by
+     * Get treatedBy
      *
-     * 
-    */
-    //public function getTreatedBy()[...]
+     * @return \AppBundle\Entity\User
+     */
+    public function getTreatedBy()
+    {
+        return $this->treatedBy;
+    }
 
     /**
      * Get state
@@ -225,13 +253,23 @@ class Task
     */
     public function setDateReceipt($dateReceipt)
     {
-        $this->dateReceipt = $dateReceipt;
+        $this->dateReceipt = new \DateTime($dateReceipt);
+        
     }
 
     /**
-     * Set user concerned 
-    */
-    // __contruct ?? TO DO
+     * Set userConcerned
+     *
+     * @param \AppBundle\Entity\User $userConcerned
+     *
+     * @return Task
+     */
+    public function setUserConcerned(\AppBundle\Entity\User $userConcerned = null)
+    {
+        $this->userConcerned = $userConcerned;
+
+        return $this;
+    }
 
     /**
      * Set theme
@@ -254,7 +292,7 @@ class Task
     */
     public function setDeadline($deadline)
     {
-        $this->deadline = $deadline;
+        $this->deadline = new \DateTime($deadline);
     }
 
     /**
@@ -290,9 +328,18 @@ class Task
     }
 
     /**
-     * Set treated by
+     * Set treatedBy
+     *
+     * @param \AppBundle\Entity\User $treatedBy
+     *
+     * @return Task
      */
-    // TO DO
+    public function setTreatedBy(\AppBundle\Entity\User $treatedBy = null)
+    {
+        $this->treatedBy = $treatedBy;
+
+        return $this;
+    }
 
     /**
      * Set state
@@ -301,6 +348,4 @@ class Task
     {
         $this->state = $state;
     }
-
-   
 }
