@@ -24,6 +24,8 @@ class TaskController extends Controller
         /* @var $tasks Task[] */
 
         return $tasks;
+        var_dump($tasks);
+        die();
     }
 
     /**

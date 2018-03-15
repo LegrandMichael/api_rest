@@ -11,15 +11,25 @@ class TaskType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('dateReceipt', DateTimeType::class);
-        $builder->add('theme');
-        $builder->add('priorityLevel');
-        $builder->add('deadline', DateTimeType::class);
-        $builder->add('publicConcerned');
-        $builder->add('goal');  
-        $builder->add('broadcasting');
-        $builder->add('answer');
-        $builder->add('state');
+        $builder
+            ->add('dateReceipt', DateTimeType::class, array(
+                'widget' => 'single_text',
+                'input' => 'datetime',
+            ))
+            ->add('userConcerned')
+            ->add('theme')
+            ->add('priorityLevel')
+            ->add('deadline', DateTimeType::class, array(
+                'widget' => 'single_text',
+                'input' => 'datetime',
+            ))
+            ->add('publicConcerned')
+            ->add('goal')
+            ->add('broadcasting')
+            ->add('answer')
+            ->add('treatedBy')
+            ->add('state')
+        ;
     }
 
     public function configureOptions(OptionsResolver $resolver)

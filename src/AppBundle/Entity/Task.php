@@ -27,15 +27,9 @@ class Task
      * @var \Datetime
      * 
      * @ORM\Column(name="date_receipt", type="datetime")
+     * @Assert\Type(type="\DateTime")
     */
     protected $dateReceipt;
-
-    /**
-     * DO NOT FORGET TO JOIN TABLE WITH USERS
-     * 
-     * name="user_concerned"
-    */
-    //protected $userConcerned;
 
     /**
      * @var string
@@ -55,6 +49,7 @@ class Task
      * @var \Datetime
      * 
      * @ORM\Column(name="deadline", type="datetime", nullable=true)
+     * @Assert\Type(type="\DateTime")
     */
     protected $deadline;
 
@@ -85,12 +80,6 @@ class Task
      * @ORM\Column(name="answer", type="text")
     */
     protected $answer;
-
-    /**
-     * DO NOT FORGET TO JOIN TABLE WITH USERS
-     * name="treated_by"
-    */
-    //protected $treatedBy;
     
     /**
      * @var string
@@ -106,21 +95,22 @@ class Task
 
     /**
      * Many Tasks have One User.
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="tasksToBeTreat")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="fullName")
      * @ORM\JoinColumn(name="user_concerned", referencedColumnName="id")
      */
     protected $userConcerned;
 
     /**
      * Many Tasks have One User.
-     * @ORM\ManyToOne(targetEntity="User", inversedBy="tasksTreated")
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="initial")
      * @ORM\JoinColumn(name="treated_by", referencedColumnName="id")
      */
     protected $treatedBy;
 
     /**
-     * Functions to get all necessaries data
-     * -------------------------------------
+     * -------------
+     * -- Getters -- 
+     * -------------
     */
 
     /**
@@ -244,17 +234,17 @@ class Task
     }
 
     /**
-     * Function to set all data needed to fill the database
-     * ----------------------------------------------------
+     * -------------
+     * -- Setters --
+     * -------------
     */
 
     /**
      * Set Date of receipt
     */
     public function setDateReceipt($dateReceipt)
-    {
-        $this->dateReceipt = new \DateTime($dateReceipt);
-        
+    { 
+        $this->dateReceipt = $dateReceipt;
     }
 
     /**
@@ -292,7 +282,7 @@ class Task
     */
     public function setDeadline($deadline)
     {
-        $this->deadline = new \DateTime($deadline);
+        $this->deadline = $deadline;
     }
 
     /**
