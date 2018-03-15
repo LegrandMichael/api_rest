@@ -27,6 +27,7 @@ class User
      * @var string
      *
      * @ORM\Column(name="first_name", type="string", length=255)
+     * @Assert\NotBlank()
      */
     protected $firstName;
 
@@ -34,6 +35,7 @@ class User
      * @var string
      *
      * @ORM\Column(name="last_name", type="string", length=255)
+     * @Assert\NotBlank()
      */
     protected $lastName;
 
@@ -62,6 +64,7 @@ class User
      * @var string
      *
      * @ORM\Column(name="email_address", type="string", length=100, unique=true)
+     * @Assert\NotBlank()
      */
     protected $emailAddress;
 
@@ -81,20 +84,25 @@ class User
      * One User has Many Tasks to treat.
      * @ORM\OneToMany(targetEntity="Task", mappedBy="userConcerned")
      */
-    protected $tasksToBeTreat;
+    protected $fullName;
 
     /**
      * One User has Many Tasks to treat.
      * @ORM\OneToMany(targetEntity="Task", mappedBy="treatedBy")
     */
-    protected $tasksTreated;
+    protected $initial;
 
 
 
     public function __construct()
     {
-        $this->tasksToBeTreat = new ArrayCollections();
-        $this->tasksTreated = new ArrayCollections();
+        $this->fullName = new ArrayCollections();
+        $this->initial = new ArrayCollections();
+    }
+
+    public function __toString()
+    {
+        return getFirstName()+" "+getLastName();
     }
 
     /**
