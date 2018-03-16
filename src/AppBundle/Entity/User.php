@@ -87,7 +87,7 @@ class User
     protected $fullName;
 
     /**
-     * One User has Many Tasks to treat.
+     * One User has Many Tasks treated.
      * @ORM\OneToMany(targetEntity="Task", mappedBy="treatedBy")
     */
     protected $initial;
@@ -96,13 +96,13 @@ class User
 
     public function __construct()
     {
-        $this->fullName = new ArrayCollections();
-        $this->initial = new ArrayCollections();
+        $this->fullName = new ArrayCollection();
+        $this->initial = new ArrayCollection();
     }
 
     public function __toString()
     {
-        return getFirstName()+" "+getLastName();
+        
     }
 
     /**

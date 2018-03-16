@@ -7,6 +7,7 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as Rest;
+use AppBundle\Form\Type\UserType;
 use AppBundle\Entity\User;
 
 class UserController extends Controller
@@ -56,7 +57,7 @@ class UserController extends Controller
         $form->submit($request->request->all());
 
         if($form->isValid()){
-            $em->$this->get('doctrine.orm.entity_manager');
+            $em = $this->get('doctrine.orm.entity_manager');
             $em->persist($user);
             $em->flush();
             return $user;  
