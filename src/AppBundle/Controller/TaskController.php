@@ -40,7 +40,7 @@ class TaskController extends Controller
         /* @var $task Task */
 
         if (empty($task)) {
-            return new JsonResponse(['message' => 'user not found'], Response::HTTP_NOT_FOUND);
+            return \FOS\RestBundle\View\View::create(['message' => 'Task not found'], Response::HTTP_NOT_FOUND);
         }
         
         return $task;
@@ -59,6 +59,66 @@ class TaskController extends Controller
 
         if($form->isValid())
         {
+            $em = $this->get('doctrine.orm.entity_manager');
+            $em->persist($task);
+            $em->flush();
+            return $task;
+        } else {
+            return $form;
+        }
+    }
+
+    /**
+     * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
+     * @Rest\Delete("/tasks/{id}")
+     */
+    public function removeTaskAction(Request $request)
+    {
+        $em = $this->get('doctrine.orm.entity_manager');
+        $task = $em->getRepository("AppBundle:Task")
+            ->find($request->get('id'));
+        /* @var $Task Task */
+
+        if($task){
+            $em->remove($task);
+            $em->flush();
+        }
+    }
+
+    /**
+     * @Rest\View()
+     * @Rest\Put("/tasks/{id}")
+     */
+    public function updateTaskAction(Request $request)
+    {
+       return $this->updateTask($request, true);
+    }
+
+    /**
+     * @Rest\View()
+     * @Rest\Patch("/tasks/{id}")
+     */
+    public function patchTaskAction(Request $request)
+    {
+        return $this->updateTask($request, false);
+    }
+    
+    private function updateTask(Request $request, $clearMissing)
+    {
+        $task = $this->get('doctrine.orm.entity_manager')
+            ->getRepository('AppBundle:Task')
+            ->find($request->get('id'));
+        /* @var $task Task */
+    
+        if(empty($task)){
+            return \FOS\RestBundle\View\View::create(['message' => 'Task not found'], Response::HTTP_NOT_FOUND);
+        }
+    
+        $form = $this->createForm(TaskType::class, $task);
+    
+        $form->submit($request->request->all(), $clearMissing);
+    
+        if($form->isValid()){
             $em = $this->get('doctrine.orm.entity_manager');
             $em->persist($task);
             $em->flush();

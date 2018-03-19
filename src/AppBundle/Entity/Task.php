@@ -77,20 +77,21 @@ class Task
     /**
      * @var string
      * 
-     * @ORM\Column(name="answer", type="text")
+     * @ORM\Column(name="answer", type="text", nullable=true)
     */
     protected $answer;
     
     /**
      * @var string
      * 
-     * @ORM\Column(name="state", type="string", length=15)
+     * @ORM\Column(name="state", type="string", length=15, nullable=true)
     */
     protected $state;
 
     /**
-     * Mapping between tables
-     * ---------------------- 
+     * -------------
+     * -- Mapping --
+     * -------------
     */
 
     /**

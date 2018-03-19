@@ -76,8 +76,9 @@ class User
     protected $organization;
 
     /**
-     * Mapping between tables
-     * ----------------------
+     * -------------
+     * -- Mapping --
+     * -------------
     */
 
     /**
@@ -106,8 +107,9 @@ class User
     }
 
     /**
-     * Functions to get all necessaries data
-     * -------------------------------------
+     * -------------
+     * -- Getters -- 
+     * -------------
     */
 
     /**
@@ -191,8 +193,9 @@ class User
     }
     
     /**
-     * Functions to set all necessaries data
-     * -------------------------------------
+     * -------------
+     * -- Setters --
+     * -------------
      */
 
     /**
