@@ -9,12 +9,14 @@ use Symfony\Component\HttpFoundation\Request;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Form\Type\UserType;
 use AppBundle\Entity\User;
+use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Routing\ClassResourceInterface;
 
-class UserController extends Controller
+class UserController extends FOSRestController implements ClassResourceInterface
 {
     /**
      * @Rest\View()
-     * @Rest\Get("/users")
+     * @Rest\Get("/api/users")
     */
     public function getUsersAction(Request $request)
     {

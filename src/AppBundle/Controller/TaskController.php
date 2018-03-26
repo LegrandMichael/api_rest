@@ -8,13 +8,15 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use FOS\RestBundle\Controller\Annotations as Rest;
 use AppBundle\Form\Type\TaskType;
-use AppBundle\Entity\Task;
+use AppBundle\Entity\Task;  
+use FOS\RestBundle\Controller\FOSRestController;
+use FOS\RestBundle\Routing\ClassResourceInterface;
 
-class TaskController extends Controller
+class TaskController extends FOSRestController implements ClassResourceInterface
 {
     /**
      * @Rest\View()
-     * @Rest\Get("/tasks") 
+     * @Rest\Get("/api/tasks") 
     */
     public function getTasksAction(Request $request) {
 
@@ -30,7 +32,7 @@ class TaskController extends Controller
 
     /**
      * @Rest\View()
-     * @Rest\Get("/tasks/{id}") 
+     * @Rest\Get("/api/tasks/{id}") 
     */
     public function getTaskAction(Request $request)
     {
@@ -48,7 +50,7 @@ class TaskController extends Controller
 
     /**
      * @Rest\View(statusCode=Response::HTTP_CREATED)
-     * @Rest\Post("/tasks")
+     * @Rest\Post("/api/tasks")
     */
     public function postTasksAction(Request $request)
     {
@@ -70,7 +72,7 @@ class TaskController extends Controller
 
     /**
      * @Rest\View(statusCode=Response::HTTP_NO_CONTENT)
-     * @Rest\Delete("/tasks/{id}")
+     * @Rest\Delete("/api/tasks/{id}")
      */
     public function removeTaskAction(Request $request)
     {
@@ -87,7 +89,7 @@ class TaskController extends Controller
 
     /**
      * @Rest\View()
-     * @Rest\Put("/tasks/{id}")
+     * @Rest\Put("/api/tasks/{id}")
      */
     public function updateTaskAction(Request $request)
     {
@@ -96,7 +98,7 @@ class TaskController extends Controller
 
     /**
      * @Rest\View()
-     * @Rest\Patch("/tasks/{id}")
+     * @Rest\Patch("/api/tasks/{id}")
      */
     public function patchTaskAction(Request $request)
     {
