@@ -15,6 +15,25 @@ security:
 
     firewalls:
         # disables authentication for assets and the profiler, adapt it according to your needs
+        api:
+            pattern: ^/api
+            stateless: true
+            guard: 
+                authenticators:
+                    - lexik_jwt_authentication.jwt_token_authenticator
+
+        login:
+            pattern: ^/api/login
+            stateless: true
+            anonymous: true
+            form_login:
+                check_path:               /api/login_check
+                success_handler:          lexik_jwt_authentication.handler.authentication_success
+                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
+                require_previous_session: false
+                username_parameter:       username
+                password_parameter:       password
+            
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
@@ -29,24 +48,6 @@ security:
 
             # https://symfony.com/doc/current/security/form_login_setup.html
             #form_login: ~
-        login:
-            pattern: ^/api/login
-            stateless: true
-            anonymous: true
-            form_login:
-                check_path:               /api/login_check
-                success_handler:          lexik_jwt_authentication.handler.authentication_success
-                failure_handler:          lexik_jwt_authentication.handler.authentication_failure
-                require_previous_session: false
-                username_parameter:       username
-                password_parameter:       password
-            
-        api:
-            pattern: ^/api
-            stateless: true
-            guard: 
-                authenticators:
-                    - lexik_jwt_authentication.jwt_token_authenticator
     
     access_control:
         - { path: ^/api/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
