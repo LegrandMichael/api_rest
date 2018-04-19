@@ -26,8 +26,6 @@ class TaskController extends FOSRestController implements ClassResourceInterface
         /* @var $tasks Task[] */
 
         return $tasks;
-        var_dump($tasks);
-        die();
     }
 
     /**
